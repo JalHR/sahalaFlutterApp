@@ -10,7 +10,7 @@ class AppTheme {
     colorScheme: ColorScheme(
       brightness: Brightness.light,
       primary: _primaryColor,
-      onPrimary: Color(0x1E1E1E),
+      onPrimary: Color(0x001e1e1e),
       secondary: _secondaryColor,
       onSecondary: _primaryColor,
       error: Color(0xFFFF5F57),

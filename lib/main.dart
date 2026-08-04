@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sahala/core/theme/app_theme.dart';
 import 'package:sahala/dependency_injection.dart';
 import 'package:sahala/features/home/Presentation/home.dart';
-import 'package:sahala/features/intro/presentation/screens/intro_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
