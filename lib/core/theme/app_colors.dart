@@ -24,4 +24,6 @@ class AppColors {
     60: Color(0x999EBBCB),
     80: Color(0xCC9EBBCB),
   });
+
+  static const Color border = Color(0xFFDEDEDE);
 }

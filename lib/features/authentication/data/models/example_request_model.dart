@@ -1,8 +1,24 @@
-class ExampleRequestModel {
-  final String field1;
-  final String field2;
+class LoginRequestModel {
+  final String phoneNumber;
+  final int deviceType;
+  final double latitude;
+  final double longitude;
+  final String? deviceToken;
+  LoginRequestModel({
+    required this.phoneNumber,
+    required this.deviceType,
+    required this.latitude,
+    required this.longitude,
+    required this.deviceToken,
+  });
 
-  ExampleRequestModel({required this.field1, required this.field2});
-
-  Map<String, dynamic> toJson() => {'field1': field1, 'field2': field2};
+  Map<String, dynamic> toJson() {
+    return {
+      'mobile_number': phoneNumber,
+      'device_type': deviceType,
+      'latitude': latitude,
+      'longitude': longitude,
+      'device_token': deviceToken,
+    };
+  }
 }

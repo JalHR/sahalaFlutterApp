@@ -19,6 +19,20 @@ class AppTheme {
       surface: Colors.white,
       onSurface: Color(0xFF1E1E1E),
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: BorderSide(color: AppColors.border),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: BorderSide(color: AppColors.border),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: BorderSide(color: AppColors.primary),
+      ),
+    ),
   );
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,
