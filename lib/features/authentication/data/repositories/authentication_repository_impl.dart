@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:sahala/core/api/api_client.dart';
-import 'package:sahala/features/authentication/data/models/example_request_model.dart';
+import 'package:sahala/features/authentication/data/models/login_request_model.dart';
 import 'package:sahala/features/authentication/domain/repositories/authentication_repository.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {

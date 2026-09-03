@@ -15,16 +15,11 @@ class IntroScreen extends StatelessWidget {
           child: PageView(
             controller: controller,
             children: [
-              Container(
-                // decoration: BoxDecoration(
-                //   border: Border.all(color: Colors.red),
-                // ),
-                child: Image.asset(
-                  'assets/images/intro_first_image.png',
-                  // fit: BoxFit.cover,
-                  // width: double.infinity,
-                  // height: 50,
-                ),
+              Image.asset(
+                'assets/images/intro_first_image.png',
+                // fit: BoxFit.cover,
+                // width: double.infinity,
+                // height: 50,
               ),
               Container(color: Colors.blue, child: Text('data')),
               Container(color: Colors.green, child: Text('data')),

@@ -7,11 +7,15 @@ final loginProvider = NotifierProvider(LoginNotifer.new);
 
 class LoginState {
   final bool isLoading;
+  final bool loginSuccess;
 
-  const LoginState({this.isLoading = false});
+  const LoginState({this.isLoading = false, this.loginSuccess = false});
 
-  LoginState copyWith({bool? isLoading}) {
-    return LoginState(isLoading: isLoading ?? this.isLoading);
+  LoginState copyWith({bool? isLoading, bool? loginSuccess}) {
+    return LoginState(
+      isLoading: isLoading ?? this.isLoading,
+      loginSuccess: loginSuccess ?? this.loginSuccess,
+    );
   }
 }
 
@@ -37,10 +41,14 @@ class LoginNotifer extends Notifier<LoginState> {
 
   Future<void> login() async {
     if (!isPhoneValid || state.isLoading) return;
-    state = state.copyWith(isLoading: true);
+    state = state.copyWith(isLoading: true, loginSuccess: false);
 
     try {
-      await _loginUseCase(phoneController.text);
+      final response = await _loginUseCase(phoneController.text);
+
+      if (response.data['status'] == 'success') {
+        state = state.copyWith(loginSuccess: true);
+      }
     } finally {
       state = state.copyWith(isLoading: false);
     }

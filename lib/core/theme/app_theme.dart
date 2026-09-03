@@ -33,6 +33,40 @@ class AppTheme {
         borderSide: BorderSide(color: AppColors.primary),
       ),
     ),
+
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        minimumSize: const WidgetStatePropertyAll(Size(double.infinity, 56)),
+
+        side: const WidgetStatePropertyAll(
+          BorderSide(color: AppColors.primary, width: 1.5),
+        ),
+
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+        ),
+
+        textStyle: const WidgetStatePropertyAll(
+          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
+
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return Colors.transparent;
+          }
+
+          return AppColors.primary;
+        }),
+
+        foregroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return AppColors.primary;
+          }
+
+          return Colors.white;
+        }),
+      ),
+    ),
   );
   static final ThemeData darkTheme = ThemeData(
     useMaterial3: true,

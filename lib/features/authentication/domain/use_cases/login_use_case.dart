@@ -1,25 +1,19 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:sahala/features/authentication/data/models/example_request_model.dart';
+import 'package:sahala/core/service/firebase_messaging_service.dart';
+import 'package:sahala/features/authentication/data/models/login_request_model.dart';
 import 'package:sahala/features/authentication/domain/repositories/authentication_repository.dart';
 import 'dart:io';
+import 'dart:developer' as developer;
 
 class LoginUseCase {
   final AuthenticationRepository repository;
-
-  LoginUseCase(this.repository);
+  final FirebaseMessagingService messagingService;
+  LoginUseCase(this.repository, this.messagingService);
 
   Future<dynamic> call(String phoneNumber) async {
     final int deviceType = Platform.isIOS ? 1 : 0;
     String? deviceToken;
-    if (Platform.isIOS) {
-      deviceToken = await FirebaseMessaging.instance.getAPNSToken();
 
-      if (deviceToken != null) {
-        deviceToken = await FirebaseMessaging.instance.getToken();
-      }
-    } else {
-      deviceToken = await FirebaseMessaging.instance.getToken();
-    }
+    deviceToken = await messagingService.getToken();
 
     final body = LoginRequestModel(
       phoneNumber: phoneNumber,
@@ -29,7 +23,7 @@ class LoginUseCase {
       deviceToken: deviceToken,
     );
 
-    print(body);
+    developer.log(body.toString());
 
     return await repository.login(body);
   }

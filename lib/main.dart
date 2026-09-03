@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sahala/core/routing/app_router.dart';
+import 'package:sahala/core/routing/app_routes.dart';
+import 'package:sahala/core/service/firebase_messaging_service.dart';
 import 'package:sahala/core/theme/app_theme.dart';
 import 'package:sahala/dependency_injection.dart';
 import 'package:sahala/features/authentication/presentation/screens/login_screen.dart';
@@ -9,8 +12,10 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   setup();
+
+  await sl<FirebaseMessagingService>().initialize();
+
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -26,6 +31,8 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       home: LoginScreen(),
+      initialRoute: AppRoutes.login,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }

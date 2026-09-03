@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:sahala/core/service/firebase_messaging_service.dart';
 import 'package:sahala/features/authentication/data/repositories/authentication_repository_impl.dart';
 import 'package:sahala/features/authentication/domain/repositories/authentication_repository.dart';
 import 'package:sahala/features/authentication/domain/use_cases/login_use_case.dart';
@@ -14,6 +15,13 @@ void setup() {
   );
 
   sl.registerLazySingleton<LoginUseCase>(
-    () => LoginUseCase(sl<AuthenticationRepository>()),
+    () => LoginUseCase(
+      sl<AuthenticationRepository>(),
+      sl<FirebaseMessagingService>(),
+    ),
+  );
+
+  sl.registerLazySingleton<FirebaseMessagingService>(
+    () => FirebaseMessagingService(),
   );
 }

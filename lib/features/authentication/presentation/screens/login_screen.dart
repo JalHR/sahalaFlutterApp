@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sahala/core/routing/app_routes.dart';
 import 'package:sahala/core/widgets/background.dart';
 import 'package:sahala/features/authentication/presentation/providers/login_provider.dart';
 
@@ -24,6 +25,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final loginNotifier = ref.read(loginProvider.notifier);
     final loginState = ref.watch(loginProvider);
+
+    ref.listen<LoginState>(loginProvider, (previous, next) {
+      if (next.loginSuccess && previous?.loginSuccess != true) {
+        Navigator.pushNamed(
+          context,
+          AppRoutes.otp,
+          arguments: loginNotifier.phoneController.text,
+        );
+      }
+    });
+
     return AppBackground(
       child: Padding(
         padding: EdgeInsets.all(24.0),
@@ -68,27 +80,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 onPressed: loginNotifier.isPhoneValid && !loginState.isLoading
                     ? loginNotifier.login
                     : null,
-
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size(double.infinity, 56),
-                  backgroundColor: loginNotifier.isPhoneValid
-                      ? const Color(0xFF53C7D1)
-                      : Colors.transparent,
-                  side: const BorderSide(color: Color(0xFF53C7D1), width: 1.5),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                ),
-                child: Text(
-                  'Continue',
-                  style: TextStyle(
-                    color: loginNotifier.isPhoneValid
-                        ? Colors.white
-                        : Color(0xFF53C7D1),
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: loginState.isLoading
+                    ? const SizedBox(
+                        width: 24,
+                        height: 24,
+                        child: CircularProgressIndicator(strokeWidth: 2.5),
+                      )
+                    : const Text('Continue'),
               ),
               SizedBox(height: 24),
             ],
