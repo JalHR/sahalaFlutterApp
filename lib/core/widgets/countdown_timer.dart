@@ -43,7 +43,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
   String get _formattedTime {
     final remaining = _endTime.difference(DateTime.now());
 
-    final totalSeconds = remaining.inSeconds;
+    final totalSeconds = remaining.inSeconds.clamp(0, double.infinity).toInt();
 
     final minutes = totalSeconds ~/ 60;
     final seconds = totalSeconds % 60;

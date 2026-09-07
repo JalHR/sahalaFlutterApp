@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sahala/dependency_injection.dart';
 import 'package:sahala/features/authentication/domain/use_cases/login_use_case.dart';
 
-final loginProvider = NotifierProvider(LoginNotifer.new);
+final loginProvider = NotifierProvider<LoginNotifer, LoginState>(
+  LoginNotifer.new,
+);
 
 class LoginState {
   final bool isLoading;
