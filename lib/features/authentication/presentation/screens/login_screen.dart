@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sahala/core/routing/app_routes.dart';
+import 'package:sahala/core/theme/app_colors.dart';
 import 'package:sahala/core/widgets/background.dart';
 import 'package:sahala/features/authentication/presentation/providers/login_provider.dart';
 
@@ -64,14 +65,30 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               TextField(
                 keyboardType: TextInputType.phone,
                 controller: loginNotifier.phoneController,
-                onChanged: (_) => setState(() {}),
+                onChanged: (value) => setState(() {}),
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                   LengthLimitingTextInputFormatter(9),
+                  TextInputFormatter.withFunction((oldValue, newValue) {
+                    if (newValue.text.isEmpty ||
+                        newValue.text.startsWith('5')) {
+                      return newValue;
+                    }
+                    return oldValue;
+                  }),
                 ],
-                decoration: const InputDecoration(
-                  hintText: 'Enter mobile number',
-                  prefixText: '+966 ',
+                decoration: InputDecoration(
+                  hintText: '5xxxxxxxxx',
+                  prefixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(width: 15),
+                      Text('+966'),
+                      SizedBox(width: 10),
+                      Container(width: 1, height: 28, color: AppColors.border),
+                      const SizedBox(width: 10),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 24),
